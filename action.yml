@@ -1,0 +1,23 @@
+name: 'Claude Code Review Bot'
+description: 'AI code review with custom rules support'
+inputs:
+  anthropic-api-key:
+    description: 'Claude OAuth Token / API Key'
+    required: true
+  custom-rules-path:
+    description: 'Path to custom rules file in consumer repo'
+    required: false
+    default: 'customRules'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    CI_PROVIDER: 'github'
+    CLAUDE_CODE_OAUTH_TOKEN: ${{ inputs.anthropic-api-key }}
+    GITHUB_TOKEN: ${{ github.token }}
+    GITHUB_REPOSITORY: ${{ github.repository }}
+    GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+    CI_PR_NUMBER: ${{ github.event.pull_request.number }}
+    CI_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+    CI_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+    CUSTOM_RULES_FILE: ${{ inputs.custom-rules-path }}
