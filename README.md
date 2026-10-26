@@ -92,7 +92,3 @@ jobs:
 | `custom-rules-path` | No | `customRules` | Path to a custom review rules file in the consumer repo. |
 
 ---
-
-## License
-
-MIT
